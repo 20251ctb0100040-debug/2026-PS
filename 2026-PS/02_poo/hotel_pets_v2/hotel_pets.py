@@ -8,13 +8,11 @@
 #Atividade : Classe Pet
 =====================================================
 '''
+
 import pickle
 
 
 class Pet:
-    """
-    Representa um pet no sistema do hotel.
-    """
 
     def __init__(self, nome, especie, idade, raca, peso,
                  nome_dono, telefone_dono, vacinado, observacoes):
@@ -31,6 +29,7 @@ class Pet:
         self.hospedado = False
 
     def exibir_dados(self):
+
         print("\n--- Dados do Pet ---")
         print(f"Nome: {self.nome}")
         print(f"Espécie: {self.especie}")
@@ -43,21 +42,8 @@ class Pet:
         print(f"Hospedado: {'Sim' if self.hospedado else 'Não'}")
         print(f"Observações: {self.observacoes}")
 
-    def registro_entrada(self):
-        if self.hospedado:
-            print(f"{self.nome} já está hospedado.")
-        else:
-            self.hospedado = True
-            print(f"{self.nome} entrou no hotel.")
-
-    def registro_saida(self):
-        if not self.hospedado:
-            print(f"{self.nome} não está hospedado.")
-        else:
-            self.hospedado = False
-            print(f"{self.nome} saiu do hotel.")
-
     def calcular_diaria(self):
+
         if self.idade <= 3:
             return 50
         elif self.idade <= 10:
@@ -65,17 +51,54 @@ class Pet:
         else:
             return 75
 
+    def registro_entrada(self):
+
+        if self.hospedado:
+            print(f"{self.nome} já está hospedado.")
+        else:
+            self.hospedado = True
+            print(f"{self.nome} entrou no hotel.")
+
+    def registro_saida(self):
+
+        if not self.hospedado:
+            print(f"{self.nome} não está hospedado.")
+        else:
+            self.hospedado = False
+            print(f"{self.nome} saiu do hotel.")
+
+    def verificar_vacinacao(self):
+
+        if self.vacinado == 'sim':
+            print(f'{self.nome} Vacinado')
+        else:
+            print(f'{self.nome} Não vacinado')
+
+    def atualizar_peso(self, novo_peso):
+
+        self.peso = float(novo_peso)
+        print(f'{self.nome} Peso atualizado para {self.peso} kg')
+
     def emitir_resumo(self):
+
         valor = self.calcular_diaria()
+
+        if self.vacinado == 'sim':
+            status_vacina = "Vacinado"
+        else:
+            status_vacina = "Não vacinado"
 
         return (
             f"\nNome: {self.nome}\n"
             f"Espécie: {self.especie}\n"
+            f"Peso: {self.peso} kg\n"
             f"Diária: R$ {valor:.2f}\n"
-            f"Hospedado: {'Sim' if self.hospedado else 'Não'}"
+            f"Verificação da vacina: {status_vacina}\n"
+            f"Hospedado: {'Sim' if self.hospedado else 'Não'}\n"
         )
 
     def para_linha_txt(self):
+
         return (
             f"{self.nome};{self.especie};{self.idade};"
             f"{self.raca};{self.peso};{self.nome_dono};"
@@ -84,26 +107,26 @@ class Pet:
         )
 
 
-# =====================================================
-# PERSISTÊNCIA
-# =====================================================
-
 def salvar_em_txt(pets, caminho):
+
     with open(caminho, "w", encoding="utf-8") as arquivo:
+
         for pet in pets:
             arquivo.write(pet.para_linha_txt() + "\n")
 
-    print(f"\n✅ {len(pets)} pet(s) salvo(s) em {caminho}")
+    print(f"\n{len(pets)} pet(s) salvo(s) em {caminho}")
 
 
 def salvar_em_binario(pets, caminho):
+
     with open(caminho, "wb") as arquivo:
         pickle.dump(pets, arquivo)
 
-    print(f"\n✅ {len(pets)} pet(s) salvo(s) em {caminho}")
+    print(f"\n{len(pets)} pet(s) salvo(s) em {caminho}")
 
 
 def carregar_de_binario(caminho):
+
     try:
         with open(caminho, "rb") as arquivo:
             return pickle.load(arquivo)
@@ -113,46 +136,28 @@ def carregar_de_binario(caminho):
         return []
 
 
-# =====================================================
-# FUNÇÕES DO SISTEMA
-# =====================================================
-
 def cadastrar_pet(pets):
 
     print("\n===== Cadastro de Pet =====")
 
     nome = input("Nome: ")
     especie = input("Espécie: ")
-
     idade = int(input("Idade: "))
-
     raca = input("Raça: ")
-
     peso = float(input("Peso: "))
-
     nome_dono = input("Nome do dono: ")
-
     telefone_dono = input("Telefone do dono: ")
-
     vacinado = input("Vacinado (sim/não): ")
-
     observacoes = input("Observações: ")
 
     novo_pet = Pet(
-        nome,
-        especie,
-        idade,
-        raca,
-        peso,
-        nome_dono,
-        telefone_dono,
-        vacinado,
-        observacoes
+        nome, especie, idade, raca, peso,
+        nome_dono, telefone_dono, vacinado, observacoes
     )
 
     pets.append(novo_pet)
 
-    print("\n✅ Pet cadastrado com sucesso.")
+    print("\nPet cadastrado com sucesso.")
 
 
 def listar_pets(pets):
@@ -164,7 +169,6 @@ def listar_pets(pets):
     print(f"\n===== Lista de Pets ({len(pets)}) =====")
 
     for i, pet in enumerate(pets, start=1):
-
         print(f"\n[{i}]")
         pet.exibir_dados()
 
@@ -226,10 +230,6 @@ def resumo_pet(pets):
         print("Digite um número válido.")
 
 
-# =====================================================
-# MENU
-# =====================================================
-
 def menu():
 
     pets = carregar_de_binario("pets.bin")
@@ -250,39 +250,25 @@ def menu():
 
         if opcao == "1":
             cadastrar_pet(pets)
-
         elif opcao == "2":
             listar_pets(pets)
-
         elif opcao == "3":
             entrada_pet(pets)
-
         elif opcao == "4":
             saida_pet(pets)
-
         elif opcao == "5":
             resumo_pet(pets)
-
         elif opcao == "6":
             salvar_em_txt(pets, "pets.txt")
-
         elif opcao == "7":
             salvar_em_binario(pets, "pets.bin")
-
         elif opcao == "0":
-
             salvar_em_binario(pets, "pets.bin")
-
             print("\nAté logo.")
             break
-
         else:
             print("Opção inválida.")
 
-
-# =====================================================
-# EXECUÇÃO
-# =====================================================
 
 if __name__ == "__main__":
     menu()
