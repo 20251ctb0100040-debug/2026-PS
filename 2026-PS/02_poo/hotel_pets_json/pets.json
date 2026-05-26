@@ -1,0 +1,38 @@
+[
+    {
+        "nome": "artur",
+        "especie": "cachorro",
+        "idade": 16,
+        "raca": "viralata",
+        "peso": 4.0,
+        "nome_dono": "adriano",
+        "telefone_dono": "43535355353",
+        "vacinado": "sim",
+        "observacoes": "ele é cahtinho",
+        "hospedado": false
+    },
+    {
+        "nome": "bernardo",
+        "especie": "gato",
+        "idade": 3,
+        "raca": "lindicen",
+        "peso": 5.0,
+        "nome_dono": "tata",
+        "telefone_dono": "43000393993",
+        "vacinado": "sim",
+        "observacoes": "nenhuma",
+        "hospedado": false
+    },
+    {
+        "nome": "marie",
+        "especie": "gato",
+        "idade": 7,
+        "raca": "siames",
+        "peso": 7.0,
+        "nome_dono": "gustavo",
+        "telefone_dono": "42988795853",
+        "vacinado": "sim",
+        "observacoes": "ela é acreciva ",
+        "hospedado": false
+    }
+]
