@@ -1,4 +1,4 @@
-public class Main {
+public class be {
         public static void main(String[] args) {
 
         // Dia do nascimento = 28

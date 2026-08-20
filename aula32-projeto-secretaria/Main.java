@@ -30,30 +30,31 @@ public class Main {
                 System.out.println("Opcao invalida! Vale 0, 1 ou 2.");
             }
         }
-
         teclado.close();
     }
 
     static void cadastrar(ArrayList<Aluno> lista, Scanner teclado) {
         System.out.print("Nome: ");
         String nome = teclado.nextLine().trim();
-
-        Aluno aluno = new Aluno(nome);
-        lista.add(aluno);
-
-        System.out.println("Aluno cadastrado com sucesso!");
+        System.out.print("Matricula: ");
+        String matricula = teclado.nextLine().trim();
+        System.out.print("Curso: ");
+        String curso = teclado.nextLine().trim();
+        Aluno novo = new Aluno( nome, matricula, curso);
+        lista.add(novo);
+        System.out.println("Ficha de" + novo.getNome() + "arquivada!");
     }
 
-    static void listar(ArrayList<Aluno> lista) {
-        if (lista.isEmpty()) {
-            System.out.println("Nenhum aluno cadastrado.");
+    static void listar(ArrayList<Aluno> lista){
+        if(lista.size()==0){
+            System.out.println("Nenhuma ficha no gaveteiro ainda.");
             return;
         }
-
-        System.out.println("===== ALUNOS CADASTRADOS =====");
-
-        for (Aluno aluno : lista) {
-            System.out.println(aluno);
+        System.out.println("--- FICHAS NO GAVETEIRO: " + lista.size()+ "---");
+        for (int i = 0; i < lista.size(); i++){
+            Aluno a = lista.get(i);
+            System.out.println(a.getMatricula() + "|" + a.getNome() + "|" + a.getCurso());
         }
     }
+    
 }
