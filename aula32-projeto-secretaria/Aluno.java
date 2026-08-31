@@ -7,6 +7,7 @@ public class Aluno {
         this.nome = nome;
         this.matricula = matricula;
         this.curso = curso;
+        this.cidade = cidade;
     }
     public String getNome() {
         return nome;
@@ -25,5 +26,8 @@ public class Aluno {
     }
     public void setCurso(String curso){
         this.curso = curso;
+    }
+    public String getCidade(){
+        return cidade;
     }
 }
