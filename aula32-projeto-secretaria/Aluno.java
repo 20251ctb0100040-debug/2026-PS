@@ -2,8 +2,9 @@ public class Aluno {
     private String nome;
     private String matricula;
     private String curso;
+    private String cidade;
     
-    public Aluno(String nome, String matricula, String curso){
+    public Aluno(String nome, String matricula, String curso, String cidade){
         this.nome = nome;
         this.matricula = matricula;
         this.curso = curso;
@@ -29,5 +30,9 @@ public class Aluno {
     }
     public String getCidade(){
         return cidade;
+    }
+    @Override
+    public String toString(){
+        return matricula + "/" + nome + "/" + curso + "/" + cidade;
     }
 }

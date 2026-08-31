@@ -1,0 +1,17 @@
+Conceito pretendido: B
+
+Por que este conceito:
+- Criterio 1 (classe e encapsulamento): Aluno.java, linha 2 até a linha 5 — os atributos estão como private, protegendo os dados do aluno.
+- Criterio 1 (identidade: titulo do menu e mensagens): Main.java, linha 13 — o título da secretaria foi personalizado com meu nome.
+- Criterio 2 (colecao e menu): Main.java, linha 7 e linhas 14 até 21 — a ArrayList guarda os alunos e o menu apresenta as opções do sistema.
+- Criterio 3 (busca, CRUD): Main.java, linhas 106 até 117 — a função buscarPorMatricula percorre a lista e procura o aluno pela matrícula.
+- Criterio 3 (atributo extra na ficha): Aluno.java, linha 5 — a ficha possui o atributo cidade.
+- Criterio 4 (toString): Aluno.java, linha 22 — o método toString() apresenta os dados da ficha.
+- Criterio 5 (autoavaliacao): as duas explicacoes abaixo, com as minhas palavras.
+- Criterio 4 (relatorio e melhoria): Main.java, linhas 49 até 68 e linhas 174 até 193 — a melhoria impede o cadastro quando o nome ou a matrícula estão vazios, e o relatório apresenta as informações dos alunos cadastrados.
+
+Explicacao 1 (rota: cadastro ate a busca / nivel C): A busca percorre a lista e compara a matrícula informada com a matrícula de cada aluno. Quando encontra, retorna o objeto Aluno. Se não encontrar, retorna null para que a função de busca mostre a mensagem de erro.
+
+Explicacao 2: No cadastro, usei isEmpty() depois do trim() para verificar se o nome ou a matrícula ficaram vazios. Se estiverem vazios, o programa mostra uma mensagem e cancela o cadastro.
+
+Usei IA em: usei IA para tirar dúvidas e entender alguns códigos que estavam na atividade e também no meu código, utilizei tambem pra descobrir o codigo isEmpty
