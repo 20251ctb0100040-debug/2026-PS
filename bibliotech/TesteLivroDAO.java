@@ -5,15 +5,10 @@ public class TesteLivroDAO {
 
         LivroDAO dao = new LivroDAO();
 
-        boolean resultado = dao.atualizarLivro(
-            1,
-            "Dom Casmurro - Edição Especial",
-            "Machado de Assis",
-            1899
-        );
+        boolean resultado = dao.excluirLivro(1);
 
         System.out.println(
-            "Livro atualizado: " + resultado
+            "Livro excluído: " + resultado
         );
     }
 }
