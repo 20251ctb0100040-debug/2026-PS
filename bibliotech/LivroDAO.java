@@ -1,7 +1,6 @@
-
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
@@ -9,6 +8,7 @@ import java.util.List;
 
 public class LivroDAO {
 
+    // ADICIONAR LIVRO
     public boolean adicionarLivro(
             String titulo, String autor, int ano) {
 
@@ -27,13 +27,16 @@ public class LivroDAO {
             return comando.executeUpdate() > 0;
 
         } catch (SQLException e) {
+
             System.out.println(
                 "Erro ao adicionar: " + e.getMessage()
             );
+
             return false;
         }
     }
 
+    // ATUALIZAR LIVRO
     public boolean atualizarLivro(
             int id, String titulo,
             String autor, int ano) {
@@ -55,13 +58,16 @@ public class LivroDAO {
             return comando.executeUpdate() > 0;
 
         } catch (SQLException e) {
+
             System.out.println(
                 "Erro ao atualizar: " + e.getMessage()
             );
+
             return false;
         }
     }
 
+    // EXCLUIR LIVRO
     public boolean excluirLivro(int id) {
 
         String sql =
@@ -76,16 +82,19 @@ public class LivroDAO {
             return comando.executeUpdate() > 0;
 
         } catch (SQLException e) {
+
             System.out.println(
                 "Erro ao excluir: " + e.getMessage()
             );
+
             return false;
         }
     }
 
-    public List<String> listarLivros() {
+    // LISTAR LIVROS
+    public List<Livro> listarLivros() {
 
-        List<String> livros = new ArrayList<>();
+        List<Livro> livros = new ArrayList<>();
 
         String sql =
             "SELECT id, titulo, autor, ano " +
@@ -99,20 +108,18 @@ public class LivroDAO {
 
             while (resultado.next()) {
 
-                int id = resultado.getInt("id");
-                String titulo = resultado.getString("titulo");
-                String autor = resultado.getString("autor");
-                int ano = resultado.getInt("ano");
-
-                String livro =
-                    id + " - " +
-                    titulo + " - " +
-                    autor + " (" + ano + ")";
+                Livro livro = new Livro(
+                    resultado.getInt("id"),
+                    resultado.getString("titulo"),
+                    resultado.getString("autor"),
+                    resultado.getInt("ano")
+                );
 
                 livros.add(livro);
             }
 
         } catch (SQLException e) {
+
             System.out.println(
                 "Erro ao listar livros: " + e.getMessage()
             );
@@ -121,9 +128,8 @@ public class LivroDAO {
         return livros;
     }
 
-    // NOVO MÉTODO: BUSCAR LIVRO POR ID
-
-    public String buscarLivroPorId(int id) {
+    // BUSCAR LIVRO POR ID
+    public Livro buscarLivroPorId(int id) {
 
         String sql =
             "SELECT id, titulo, autor, ano " +
@@ -140,32 +146,65 @@ public class LivroDAO {
 
                 if (resultado.next()) {
 
-                    int codigo =
-                        resultado.getInt("id");
-
-                    String titulo =
-                        resultado.getString("titulo");
-
-                    String autor =
-                        resultado.getString("autor");
-
-                    int ano =
-                        resultado.getInt("ano");
-
-                    return codigo + " - " +
-                           titulo + " - " +
-                           autor + " (" + ano + ")";
+                    return new Livro(
+                        resultado.getInt("id"),
+                        resultado.getString("titulo"),
+                        resultado.getString("autor"),
+                        resultado.getInt("ano")
+                    );
                 }
             }
 
         } catch (SQLException e) {
 
             System.out.println(
-                "Erro ao buscar livro: " +
-                e.getMessage()
+                "Erro ao buscar livro: " + e.getMessage()
             );
         }
 
         return null;
+    }
+
+    // BUSCAR LIVROS POR TITULO
+    public List<Livro> buscarLivrosPorTitulo(String titulo) {
+
+        List<Livro> livros = new ArrayList<>();
+
+        String sql =
+            "SELECT id, titulo, autor, ano " +
+            "FROM livros " +
+            "WHERE titulo LIKE ? " +
+            "ORDER BY titulo";
+
+        try (Connection conexao = Conexao.conectar();
+             PreparedStatement comando =
+                 conexao.prepareStatement(sql)) {
+
+            comando.setString(1, "%" + titulo + "%");
+
+            try (ResultSet resultado =
+                     comando.executeQuery()) {
+
+                while (resultado.next()) {
+
+                    Livro livro = new Livro(
+                        resultado.getInt("id"),
+                        resultado.getString("titulo"),
+                        resultado.getString("autor"),
+                        resultado.getInt("ano")
+                    );
+
+                    livros.add(livro);
+                }
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(
+                "Erro ao buscar livros: " + e.getMessage()
+            );
+        }
+
+        return livros;
     }
 }
